@@ -484,3 +484,69 @@ QuickSort:quickSort:[35]:array=[1, 5, 25, 30, 33, 34, 38, 40, 91, 95]
 Sort duration = 4
 ```
 
+### 七、顺序查找
+
+顺序查找也是暴力查找，从头到尾进行遍历匹配。不详细说明了。
+
+核心代码如下:
+
+``` java
+    /**
+     * 顺序查找又是暴力查找，单循环顺序从头查找
+     * @param array
+     * @param target
+     */
+    @Override
+    public int search(int[] array, int target) {
+        int length = array.length;
+        int num = 0;
+        for (int i = 0; i < length; i++) {
+            num ++;
+            printf(array,num);
+            if (array[i] == target){
+                dprintf(num);
+                return i;
+            }
+        }
+        return -1;
+    }
+```
+
+### 八、二分查找
+
+二分查找只适用于有序序列。每次从中间对比。不详细说明了。
+
+核心代码如下：
+
+``` java
+    @Override
+    public int search(int[] array, int target) {
+        printf(array,target);
+        return binarySearch(array,0,array.length-1,target);
+    }
+
+    /**
+     * 可以采用递归法查询
+     * @param array
+     * @param start
+     * @param end
+     * @param target
+     * @return
+     */
+    private int binarySearch(int array[],int start,int end,int target){
+        if (start <= end) {
+            int mid = (start + end) / 2;
+            if (array[mid] > target) {
+                printfMask(array,-1,mid);
+                return binarySearch(array,start,mid-1,target);
+            }else if (array[mid] < target){
+                printfMask(array,-1,mid);
+                return binarySearch(array,mid+1,end,target);
+            }else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+```
+

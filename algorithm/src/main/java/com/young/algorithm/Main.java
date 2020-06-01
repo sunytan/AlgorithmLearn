@@ -1,5 +1,6 @@
 package com.young.algorithm;
 
+import com.young.algorithm.search.BinarySearch;
 import com.young.algorithm.search.Search;
 import com.young.algorithm.search.SequentialSearch;
 import com.young.algorithm.sort.BubbleSort;
@@ -27,9 +28,18 @@ public class Main {
         System.out.println("Sort duration = "+ (end - start));
     }
 
+    private static void sort(Sort sort,int array[]){
+        long start;
+        long end;
+        start = System.currentTimeMillis();
+        sort.sort(array);
+        end = System.currentTimeMillis();
+        System.out.println("Sort duration = "+ (end - start));
+    }
+
     // 查找算法
     private static void search(Search search){
-        int array[] = Utils.generateArray(1000000);
+        int array[] = Utils.generateArray(21);
         int target = array[(int)(Math.random()*array.length)];
         long start;
         long end;
@@ -40,8 +50,20 @@ public class Main {
         System.out.println("Search duration = "+ (end - start)+",target="+target+",result="+result);
     }
 
+    private static void search(Search search,int[] array,int target){
+        long start;
+        long end;
+        int result;
+        start = System.currentTimeMillis();
+        result = search.search(array,target);
+        end = System.currentTimeMillis();
+        System.out.println("Search duration = "+ (end - start)+",target="+target+",result="+result);
+    }
+
     public static void main(String argv[]){
-        sort(new QuickSort());
-//        search();
+//        sort(new QuickSort());
+        int array[] = Utils.generateArray(21);
+        sort(new MergeSort(),array);
+        search(new BinarySearch(),array,array[(int) (array.length*Math.random())]);
     }
 }
