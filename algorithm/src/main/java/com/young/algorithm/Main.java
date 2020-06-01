@@ -5,6 +5,7 @@ import com.young.algorithm.search.SequentialSearch;
 import com.young.algorithm.sort.BubbleSort;
 import com.young.algorithm.sort.HeapSort;
 import com.young.algorithm.sort.InsertSort;
+import com.young.algorithm.sort.MergeSort;
 import com.young.algorithm.sort.SelectionSort;
 import com.young.algorithm.sort.Sort;
 
@@ -16,7 +17,7 @@ public class Main {
 
     // 排序算法
     private static void sort(Sort sort){
-        int array[] = Utils.generateRandomArray(20,100);
+        int array[] = Utils.generateRandomArray(10,100);
         long start;
         long end;
         start = System.currentTimeMillis();
@@ -39,7 +40,7 @@ public class Main {
     }
 
     public static void main(String argv[]){
-        sort(new SelectionSort());
+        sort(new MergeSort());
 //        search();
     }
 }

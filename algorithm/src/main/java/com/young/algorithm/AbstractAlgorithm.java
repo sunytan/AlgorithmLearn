@@ -14,27 +14,41 @@ public abstract class AbstractAlgorithm implements Algorithm {
     public static boolean DEBUG = false;
 
     protected void dprintf(int[] array,int count){
-        System.out.println(NAME + ":" + "count=" + count + " array=" + Arrays.toString(array));
+        StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+        System.out.println(getLogHeader(element)+"count=" + count + " array=" + Arrays.toString(array));
     }
 
     protected void dprintf(int[] array){
-        System.out.println(NAME + ":" + "array=" + Arrays.toString(array));
+        StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+        System.out.println(getLogHeader(element) + "array=" + Arrays.toString(array));
     }
 
     protected void dprintf(int count){
-        System.out.println(NAME + ":" + "count=" + count);
+        StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+        System.out.println(getLogHeader(element)+"count=" + count);
     }
 
     protected void printf(int[] array,int count){
         if (DEBUG) {
-            System.out.println(NAME + ":" + "count=" + count + " array=" + Arrays.toString(array));
+            StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+            System.out.println(getLogHeader(element)+"count=" + count + " array=" + Arrays.toString(array));
         }
     }
 
     protected void printf(int[] array){
         if (DEBUG) {
-            System.out.println(NAME + ":array=" + Arrays.toString(array));
+            StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+            System.out.println(getLogHeader(element) + "array=" + Arrays.toString(array));
         }
+    }
+
+    private String getLogHeader(StackTraceElement element){
+        String name = NAME;
+        String method = element.getMethodName();
+        int line = element.getLineNumber();
+        StringBuilder builder = new StringBuilder();
+        builder.append(name+":").append(method+":").append("["+line+"]:");
+        return builder.toString();
     }
 
 }
