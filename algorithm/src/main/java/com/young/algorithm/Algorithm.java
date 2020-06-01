@@ -10,5 +10,5 @@ public interface Algorithm {
 
     void sort(int[] array);
 
-    void find(int[] array,int target);
+    int search(int[] array, int target);
 }

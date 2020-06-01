@@ -1,5 +1,6 @@
 package com.young.algorithm.search;
 
+import com.young.algorithm.AbstractAlgorithm;
 import com.young.algorithm.Algorithm;
 
 /**
@@ -8,8 +9,7 @@ import com.young.algorithm.Algorithm;
  * Time  : 20-5-31:下午10:07
  * Description: this is Search
  */
-public abstract class Search implements Algorithm {
-    public static String NAME = Search.class.getSimpleName();
+public abstract class Search extends AbstractAlgorithm {
 
     @Override
     public void sort(int[] array) {
@@ -17,7 +17,5 @@ public abstract class Search implements Algorithm {
     }
 
     @Override
-    public void find(int[] array, int target) {
-
-    }
+    public abstract int search(int[] array, int target);
 }
