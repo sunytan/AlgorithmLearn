@@ -72,14 +72,14 @@ public abstract class AbstractAlgorithm implements Algorithm {
 
                 while(true) {
                     if (low == var3) {
-                        var2.append("--");
+                        var2.append("^^");
                     }
                     if (high == var3) {
                         var2.append("**");
                     }
                     var2.append(var0[var3]);
                     if (low == var3) {
-                        var2.append("--");
+                        var2.append("^^");
                     }
                     if (high == var3) {
                         var2.append("**");
