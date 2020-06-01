@@ -6,6 +6,7 @@ import com.young.algorithm.sort.BubbleSort;
 import com.young.algorithm.sort.HeapSort;
 import com.young.algorithm.sort.InsertSort;
 import com.young.algorithm.sort.MergeSort;
+import com.young.algorithm.sort.QuickSort;
 import com.young.algorithm.sort.SelectionSort;
 import com.young.algorithm.sort.Sort;
 
@@ -40,7 +41,7 @@ public class Main {
     }
 
     public static void main(String argv[]){
-        sort(new MergeSort());
+        sort(new QuickSort());
 //        search();
     }
 }
