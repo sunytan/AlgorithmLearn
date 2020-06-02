@@ -1,4 +1,4 @@
-package com.young.algorithm;
+package com.young.algorithm.algorithm;
 
 /**
  * Project:AlgorithmLearn
@@ -6,9 +6,11 @@ package com.young.algorithm;
  * Time  : 20-5-31:下午7:09
  * Description: this is Sort
  */
-public interface Algorithm {
+public interface IAlgorithm {
 
     void sort(int[] array);
 
     int search(int[] array, int target);
+
+    void process(int[] array);
 }

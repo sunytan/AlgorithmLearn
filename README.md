@@ -550,3 +550,101 @@ Sort duration = 4
     }
 ```
 
+### 九、回溯算法
+
+**简介：** 回溯算法其实就相当于是一种穷举法，或者试探法，一步一步的进行试探正确性，采用的有点类似于深度优先遍历，一条路试探到底，没有路了，就回退到上一步，继续试探。实现采用递归的思路
+
+#### 1、八皇后问题
+
+整体步骤加解释都在代码中有注释
+
+核心代码如下：
+
+``` java
+    private void queue(int array[]){
+        backTrace(array,0);
+        System.out.println("total_solution="+total_solution);
+    }
+
+    private void printfQueue(int arr[]){
+        final int length = arr.length;
+        int result[][] = new int[length][length];
+        System.out.println("arr = "+ Arrays.toString(arr));
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if (arr[i] == j) {
+                    result[i][j] = 1;
+                }
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * 回溯算法解决 八皇后问题
+     * @param array
+     * @param row
+     */
+    private void backTrace(int array[],int row){
+        // 从每一行开始，逐个遍历列看是否合适
+        if (array.length == row) {
+            total_solution++; // 记录总共有多少中解法
+            printfQueue(array);//把每一种解法都打印出来
+            return; //必须return，否则继续下去超出限制
+        }
+        for (int i = 0; i < array.length; i++) {
+            // row 存储列，array[row]表示行，数组下标表示列，数组值表示行
+            array[row] = i;
+            if (isQueueOk(array,row)) {
+                printf(array);
+                // 递归遍历下一个位置
+                if (row < array.length) {
+                    backTrace(array, row + 1);
+                }
+            }
+        }
+    }
+
+    /**
+     * 判断新放入的这个皇后能不能行的通，需要和前面的进行比较，是否在同一行或同一列以及对角线
+     * @param array
+     * @param row
+     * @return
+     */
+    private boolean isQueueOk(int array[], int row){
+        // 判断当前皇后是否ok，只需遍历row之前的所有皇后
+        for (int i = 0; i < row; i++) {
+            // 同一行不能相等
+            if (array[i] == array[row]) {
+                return false;
+            }
+            // 同一正对角线不能相等(左上到右下，正对角线都是行等于列)
+            if (i-array[i] == row -array[row]) {
+                return false;
+            }
+            // 同一反对角线不能相等(右上到左下，反对角线是行和列相加相等)
+            if (row + array[row] == i + array[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+```
+
+八皇后结果太多，四皇后运行结果如下：
+
+``` shell
+arr = [1, 3, 0, 2]
+0 1 0 0 
+0 0 0 1 
+1 0 0 0 
+0 0 1 0 
+arr = [2, 0, 3, 1]
+0 0 1 0 
+1 0 0 0 
+0 0 0 1 
+0 1 0 0 
+total_solution=2
+```
+

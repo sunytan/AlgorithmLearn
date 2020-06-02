@@ -1,7 +1,6 @@
 package com.young.algorithm.search;
 
-import com.young.algorithm.AbstractAlgorithm;
-import com.young.algorithm.Algorithm;
+import com.young.algorithm.algorithm.AbstractAlgorithm;
 
 /**
  * Project:AlgorithmLearn
@@ -18,4 +17,9 @@ public abstract class Search extends AbstractAlgorithm {
 
     @Override
     public abstract int search(int[] array, int target);
+
+    @Override
+    public void process(int[] array) {
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.young.algorithm;
 
+import com.young.algorithm.algorithm.AlgorithmImpl;
+import com.young.algorithm.algorithm.BackTraceAlgorithm;
 import com.young.algorithm.search.BinarySearch;
 import com.young.algorithm.search.Search;
 import com.young.algorithm.search.SequentialSearch;
@@ -60,10 +62,20 @@ public class Main {
         System.out.println("Search duration = "+ (end - start)+",target="+target+",result="+result);
     }
 
+    private static void process(AlgorithmImpl algorithm,int[] array){
+        long start;
+        long end;
+        start = System.currentTimeMillis();
+        algorithm.process(array);
+        end = System.currentTimeMillis();
+        System.out.println("Search duration = "+ (end - start));
+    }
+
     public static void main(String argv[]){
 //        sort(new QuickSort());
-        int array[] = Utils.generateArray(21);
-        sort(new MergeSort(),array);
-        search(new BinarySearch(),array,array[(int) (array.length*Math.random())]);
+//        int array[] = Utils.generateArray(21);
+//        sort(new MergeSort(),array);
+//        search(new BinarySearch(),array,array[(int) (array.length*Math.random())]);
+        process(new BackTraceAlgorithm(),new int[4]);
     }
 }

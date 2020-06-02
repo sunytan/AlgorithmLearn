@@ -1,4 +1,4 @@
-package com.young.algorithm;
+package com.young.algorithm.algorithm;
 
 import java.util.Arrays;
 
@@ -8,14 +8,14 @@ import java.util.Arrays;
  * Time  : 20-6-1:上午10:41
  * Description: this is AbstractAlgorithm
  */
-public abstract class AbstractAlgorithm implements Algorithm {
+public abstract class AbstractAlgorithm implements IAlgorithm {
 
     public static String NAME = AbstractAlgorithm.class.getSimpleName();
     public static boolean DEBUG = false;
 
     public final static int STACK_INDEX = 2;
 
-    protected void dprintf(int[] array,int count){
+    protected void dprintf(int[] array, int count){
         StackTraceElement element = Thread.currentThread().getStackTrace()[STACK_INDEX];
         System.out.println(getLogHeader(element)+"count=" + count + " array=" + Arrays.toString(array));
     }
@@ -103,5 +103,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
         builder.append(name+":").append(method+":").append("["+line+"]:");
         return builder.toString();
     }
+
+
 
 }

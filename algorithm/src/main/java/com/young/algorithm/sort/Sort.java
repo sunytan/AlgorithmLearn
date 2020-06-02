@@ -1,9 +1,6 @@
 package com.young.algorithm.sort;
 
-import com.young.algorithm.AbstractAlgorithm;
-import com.young.algorithm.Algorithm;
-
-import java.util.Arrays;
+import com.young.algorithm.algorithm.AbstractAlgorithm;
 
 /**
  * Project:AlgorithmLearn
@@ -19,5 +16,10 @@ public abstract class Sort extends AbstractAlgorithm {
     @Override
     public int search(int[] array, int target) {
         return -1;
+    }
+
+    @Override
+    public void process(int[] array) {
+
     }
 }
