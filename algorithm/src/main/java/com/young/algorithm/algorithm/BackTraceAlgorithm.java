@@ -1,6 +1,9 @@
 package com.young.algorithm.algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Project:AlgorithmLearn
@@ -10,14 +13,20 @@ import java.util.Arrays;
  */
 public class BackTraceAlgorithm extends AlgorithmImpl {
 
-    int total_solution = 0; // 总共有几种解法
+    public BackTraceAlgorithm(){
+        NAME = this.getClass().getSimpleName();
+        DEBUG = true;
+    }
 
     @Override
     public void process(int[] array) {
-        queue(array);
+//        queue(array);
+        packSolution();
     }
 
+    /************************八皇后问题开始********************************/
 
+    int total_solution = 0; // 总共有几种解法
     private void queue(int array[]){
         backTrace(array,0);
         System.out.println("total_solution="+total_solution);
@@ -87,4 +96,87 @@ public class BackTraceAlgorithm extends AlgorithmImpl {
         }
         return true;
     }
+    /************************八皇后问题结束********************************/
+
+    /************************背包问题开始********************************/
+    int COUNT = 10;
+    int weight[]; // 物品重量
+    int value[];  //物品单价
+    int x[]; //物品的放入情况
+    int bestVal;
+    int bestX[]; // 最佳的放入情况
+    int maxV = 10;
+    private void packSolution(){
+        Scanner scanner = new Scanner(System.in);
+        weight = new int[COUNT];
+        value = new int[COUNT];
+        x= new int[COUNT];
+        bestX = new int[COUNT];
+        int i = 0;
+        System.out.println("请输入物品重量：");
+        while (scanner.hasNext()) {
+            if (i >= COUNT) {
+                break;
+            }
+            int in = scanner.nextInt();
+            weight[i] = in;
+            i++;
+        }
+        printf(weight);
+        System.out.println("请输入物品价值：");
+        i = 0;
+        while (scanner.hasNext()) {
+            if (i >= COUNT) {
+                break;
+            }
+            int in = scanner.nextInt();
+            value[i] = in;
+            i++;
+        }
+        printf(weight);
+        deepFindSearch(0,0,0);
+        System.out.println("物品重量分别为：");
+        printf(weight);
+        System.out.println("物品价值分别为：");
+        printf(value);
+        System.out.println("背包最大价值为："+bestVal);
+        printf(bestX);
+    }
+
+    /**
+     * 对所有物品一个个遍历，对每个物品可以有放入和不放入的选择
+     * 但是要把所有物品遍历完成，然后看价值是多少。
+     * @param n 放入第几个物品了
+     * @param v 当前背包里的物品总价值
+     * @param w 当前背包里的物品总重量
+     */
+    private void deepFindSearch(int n,int v,int w){
+        // 所有物品都遍历完成了，然后看当前价值是不是最大的。
+        if (n >= COUNT) {
+            // 如果已经大于最大值了， 需要记录当前放入的物品个数和总价值。
+            if (v > bestVal) {
+                bestVal = v;
+                System.out.println("全部放入物品价值最大 = "+bestVal);
+                for (int i = 0; i < COUNT; i++) {
+                    bestX[i] = x[i];
+                }
+                printf(bestX);
+            }
+        }
+        else {
+            // 物品只有两种选择，放入或者不放入,所以遍历这两种情况
+            for (int i = 0; i <= 1; i++) {
+                x[n] = i; // 第N个物品是放入或者不放入，记录状态
+                if (w+x[n] * weight[n] < maxV) { //如果总重量小于背包容量才可以继续递归放入下一个
+                    deepFindSearch(n+1,v+x[n] * value[n], w + x[n] * weight[n]);//继续搜索
+                }else {
+//                    System.out.println("物品已经超出背包重量：");
+//                    printf(x);
+                }
+            }
+        }
+    }
+
+    /************************背包问题结束********************************/
+
 }

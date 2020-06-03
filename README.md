@@ -648,3 +648,130 @@ arr = [2, 0, 3, 1]
 total_solution=2
 ```
 
+#### 2、背包问题
+
+题目：有一个容量为 V 的背包，和一些物品。这些物品分别有两个属性，体积 w 和价值 v，每种物品只有一个。要求用这个背包装下价值尽可能多的物品，求该最大价值，背包可以不被装满。
+
+**算法思路：** 对于所有物品，只有两种选择，放入背包，或者不放入背包。所以可以物品在背包中表示为`1`，物品不放入背包表示为`0`
+
+**步骤：**
+
+1. 找子问题：物品只有两种选择，能放入或者不能放入。假定每次放入第`i`物品。第一、如果包的容量比物品的总重量小，那么最大价值和前`i-1`个物品的价值是一样的。第二、如果包还能放下该物品，但是装了不一定能大于当前相同容量的最大价值，所以需要比较。
+2. 确定状态：由上，所有‘状态’对应的’值‘即为背包容量为w时，物品的总价值v。所以每次放入物品都对应`deepFindSearch(i,v,w)`,初始是为`deepFindSearch(0,0,0)`没有放入物品也没有价值和重量。
+3. 状态转移：确定状态转移方程，由上述分析，第i个物品放入的时候，背包总价值v，总重量w。则状态转移方程为
+   * w>V 当前背包总重量大于容量，背包已经装不下此物品，所以最大价值还是前一个的价值（相当于当前物品及以后物品放入重量为0，这个在之前已经是遍历过了），不变。
+   * w<=V 当前背包重量小于等于容量，则可以继续放入。
+
+核心代码如下：
+
+``` java
+    /************************背包问题开始********************************/
+    int COUNT = 10;
+    int weight[]; // 物品重量
+    int value[];  //物品单价
+    int x[]; //物品的放入情况
+    int bestVal;
+    int bestX[]; // 最佳的放入情况
+    int maxV = 10;
+    private void packSolution(){
+        Scanner scanner = new Scanner(System.in);
+        weight = new int[COUNT];
+        value = new int[COUNT];
+        x= new int[COUNT];
+        bestX = new int[COUNT];
+        int i = 0;
+        System.out.println("请输入物品重量：");
+        while (scanner.hasNext()) {
+            if (i >= COUNT) {
+                break;
+            }
+            int in = scanner.nextInt();
+            weight[i] = in;
+            i++;
+        }
+        printf(weight);
+        System.out.println("请输入物品价值：");
+        i = 0;
+        while (scanner.hasNext()) {
+            if (i >= COUNT) {
+                break;
+            }
+            int in = scanner.nextInt();
+            value[i] = in;
+            i++;
+        }
+        printf(weight);
+        deepFindSearch(0,0,0);
+        System.out.println("物品重量分别为：");
+        printf(weight);
+        System.out.println("物品价值分别为：");
+        printf(value);
+        System.out.println("背包最大价值为："+bestVal);
+        printf(bestX);
+    }
+
+    /**
+     * 对所有物品一个个遍历，对每个物品可以有放入和不放入的选择
+     * 但是要把所有物品遍历完成，然后看价值是多少。
+     * @param n 放入第几个物品了
+     * @param v 当前背包里的物品总价值
+     * @param w 当前背包里的物品总重量
+     */
+    private void deepFindSearch(int n,int v,int w){
+        // 所有物品都遍历完成了，然后看当前价值是不是最大的。
+        if (n >= COUNT) {
+            // 如果已经大于最大值了， 需要记录当前放入的物品个数和总价值。
+            if (v > bestVal) {
+                bestVal = v;
+                System.out.println("全部放入物品价值最大 = "+bestVal);
+                for (int i = 0; i < COUNT; i++) {
+                    bestX[i] = x[i];
+                }
+                printf(bestX);
+            }
+        }
+        else {
+            // 物品只有两种选择，放入或者不放入,所以遍历这两种情况
+            for (int i = 0; i <= 1; i++) {
+                x[n] = i; // 第N个物品是放入或者不放入，记录状态
+                if (w+x[n] * weight[n] < maxV) { //如果总重量小于背包容量才可以继续递归放入下一个
+                    deepFindSearch(n+1,v+x[n] * value[n], w + x[n] * weight[n]);//继续搜索
+                }else {
+//                    System.out.println("物品已经超出背包重量：");
+//                    printf(x);
+                }
+            }
+        }
+    }
+
+    /************************背包问题结束********************************/
+
+```
+
+算法结果为：
+
+``` shell
+请输入物品重量：
+3 4 5 6 7 8 9 6 3 2 1
+BackTraceAlgorithm:packSolution:[125]:array=[3, 4, 5, 6, 7, 8, 9, 6, 3, 2]
+请输入物品价值：
+10 3 4 7 13 8 9 6 6 2
+BackTraceAlgorithm:packSolution:[136]:array=[3, 4, 5, 6, 7, 8, 9, 6, 3, 2]
+全部放入物品价值最大 = 6
+BackTraceAlgorithm:deepFindSearch:[163]:array=[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+全部放入物品价值最大 = 12
+BackTraceAlgorithm:deepFindSearch:[163]:array=[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+全部放入物品价值最大 = 15
+BackTraceAlgorithm:deepFindSearch:[163]:array=[0, 0, 0, 0, 0, 0, 0, 1, 0, 1]
+全部放入物品价值最大 = 16
+BackTraceAlgorithm:deepFindSearch:[163]:array=[0, 1, 0, 0, 0, 0, 0, 0, 0, 1]
+全部放入物品价值最大 = 22
+BackTraceAlgorithm:deepFindSearch:[163]:array=[0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+物品重量分别为：
+BackTraceAlgorithm:packSolution:[139]:array=[3, 4, 5, 6, 7, 8, 9, 6, 3, 2]
+物品价值分别为：
+BackTraceAlgorithm:packSolution:[141]:array=[1, 10, 3, 4, 7, 13, 8, 9, 6, 6]
+背包最大价值为：22
+BackTraceAlgorithm:packSolution:[143]:array=[0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+```
+
