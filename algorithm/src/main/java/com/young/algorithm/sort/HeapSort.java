@@ -16,6 +16,11 @@ public class HeapSort extends Sort {
         DEBUG = false;
     }
 
+    public HeapSort(boolean debug){
+        NAME = this.getClass().getSimpleName();
+        DEBUG = debug;
+    }
+
     @Override
     public void sort(int[] array) {
         produceMaxTopHeap(array);

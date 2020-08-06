@@ -30,7 +30,7 @@ public class Utils {
     public static int[] generateRandomArray(final int count,final int valueMax){
         int array[] = new int[count];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) ((valueMax+1)*Math.random()/* - valueMax*Math.random()*/);
+            array[i] = (int) ((valueMax+1)*Math.random() - valueMax*Math.random());
         }
         return array;
     }
